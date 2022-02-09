@@ -19,6 +19,10 @@
   "homepage": "https://github.com/MarianFrancescu/Distributor-Server#readme",
   "keywords": [],
   "dependencies": {
-    "express": "^4.17.2"
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.17.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.2.1"
   }
 }
