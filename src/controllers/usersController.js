@@ -1,5 +1,6 @@
 const Users = require('./../models/users');
 const jwt = require('jsonwebtoken');
+const emailService = require('./../services/EmailService');
 const bcrypt = require("bcryptjs");
 const salt = 6;
 
@@ -20,6 +21,8 @@ exports.registerUser = function(req, res) {
     let email = req.body.email;
     let username = req.body.username;
     let password = bcrypt.hashSync(req.body.password, salt);
+
+    emailService.sendCredentialEmail(username, email);
 
     const User = new Users();
     User.email = email;
