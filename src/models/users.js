@@ -8,6 +8,8 @@ const ROLE = {
   }
 
 const wSchema = new mongoose.Schema({
+    //TODO: add validation for all fields
+    email: String,
     username: String,
     password: String,
     created: { type: Date, default: Date.now },
