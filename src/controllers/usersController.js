@@ -40,3 +40,31 @@ exports.registerUser = async function(req, res) {
         });
     }
 };
+
+exports.login = function(req, res) {
+    let email = req.body.email;
+    let password = req.body.password;
+
+    Users.find({email: email}, function(err, result){
+        if(err){
+            res.send(err);
+        }
+        console.log(password);
+        console.log(result[0].password);
+        if(bcrypt.compareSync(password, result[0].password)){
+            jwt.sign({
+                email: result[0].email,
+                userID: result[0]._id
+            }, 
+                "secret", //secret is the key of the token
+                {expiresIn: '1h'}, 
+                function(err, token) {
+                    if(err)
+                        throw err;
+                    res.send({token: token})
+            });
+        } else {
+            res.send({status: "Login failed"});
+        }
+    });
+}
