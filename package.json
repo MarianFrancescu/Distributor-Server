@@ -19,11 +19,13 @@
   "homepage": "https://github.com/MarianFrancescu/Distributor-Server#readme",
   "keywords": [],
   "dependencies": {
+    "@sendgrid/mail": "^7.6.1",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "express": "^4.17.2",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.2.1",
-    "nodemailer": "^6.7.2"
+    "nodemailer": "^6.7.2",
+    "nodemailer-smtp-transport": "^2.7.4"
   }
 }

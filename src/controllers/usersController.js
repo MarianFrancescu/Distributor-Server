@@ -17,20 +17,26 @@ exports.getUsers = function(req, res) {
     });
 };
 
-exports.registerUser = function(req, res) {
+exports.registerUser = async function(req, res) {
     let email = req.body.email;
     let username = req.body.username;
     let password = bcrypt.hashSync(req.body.password, salt);
 
-    emailService.sendCredentialEmail(username, email);
 
-    const User = new Users();
-    User.email = email;
-    User.username = username;
-    User.password = password;
-    User.save({}, function(err){
-        if(err)
-            res.end(err);
-        res.end(`Created ${username}`);
-    });
+    let user = await Users.findOne({email: req.body.email});
+
+    if(user){
+        return res.status(400).send("User already exists!");
+    } else{
+        user = new Users();
+        user.email = email;
+        user.username = username;
+        user.password = password;
+        emailService.sendCredentialEmail(username, email);
+        await user.save({}, function(err){
+            if(err)
+                res.end(err);
+            res.end(`Created ${username}`);
+        });
+    }
 };
