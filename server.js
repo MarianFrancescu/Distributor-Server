@@ -1,10 +1,11 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
 const cors = require('cors');
 const routes = require('./src/routes/router');
 const router = express.Router();
 
-const port = 8080;
+const port = process.env.APP_PORT;
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));

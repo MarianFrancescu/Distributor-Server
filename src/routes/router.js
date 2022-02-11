@@ -8,7 +8,7 @@ const ROLE = {
 
 module.exports = function(router) {
     router.get('/', controller.getDefault);
-    router.get('/getUsers', controller.getUsers);
+    router.get('/users', controller.getUsers);
     router.post('/registerUser', controller.registerUser);
     router.post('/login', controller.login);
 };

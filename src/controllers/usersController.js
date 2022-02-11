@@ -9,7 +9,7 @@ exports.getDefault = function(req, res) {
 };
 
 exports.getUsers = function(req, res) {
-    User.find({}, function(err, results){
+    Users.find({}, function(err, results){
         if(err){
             res.status(503).send("Server error");
         }

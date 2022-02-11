@@ -1,5 +1,6 @@
+require('dotenv').config()
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/Users', { useNewUrlParser: true });
+mongoose.connect(process.env.APP_DATABASE_URL, { useNewUrlParser: true });
 
 const ROLE = {
     ADMIN: 'admin',
