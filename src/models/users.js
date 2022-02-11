@@ -13,8 +13,13 @@ const wSchema = new mongoose.Schema({
     email: String,
     username: String,
     password: String,
+    faculty: String,
+    department: String,
+    yearOfStudy: String,
     created: { type: Date, default: Date.now },
-    role: { type: String, default: ROLE.BASIC },
+    role: { type: String, 
+            default: ROLE.BASIC 
+        },
 },{
     collection: "Users"
 });

@@ -17,6 +17,16 @@ exports.getUsers = function(req, res) {
     });
 };
 
+exports.getUser = function(req, res) {
+    let userID = req.params.userID;
+    Users.findById(userID, function(err, results){
+        if(err){
+            res.status(503).send("Server error");
+        }
+        res.json(results);
+    })
+}
+
 exports.registerUser = async function(req, res) {
     let email = req.body.email;
     let username = req.body.username;
@@ -36,7 +46,7 @@ exports.registerUser = async function(req, res) {
         await user.save({}, function(err){
             if(err)
                 res.end(err);
-            res.end(`Created ${username}`);
+            res.status(201).send(`Succesfully created account for ${email}`);
         });
     }
 };
@@ -49,8 +59,7 @@ exports.login = function(req, res) {
         if(err){
             res.send(err);
         }
-        console.log(password);
-        console.log(result[0].password);
+
         if(bcrypt.compareSync(password, result[0].password)){
             jwt.sign({
                 email: result[0].email,
