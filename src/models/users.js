@@ -18,7 +18,8 @@ const wSchema = new mongoose.Schema({
     yearOfStudy: String,
     created: { type: Date, default: Date.now },
     role: { type: String, 
-            default: ROLE.BASIC 
+            default: ROLE.BASIC,
+            enum: [ROLE.ADMIN, ROLE.BASIC, ROLE.SUPERADMIN] 
         },
 },{
     collection: "Users"
