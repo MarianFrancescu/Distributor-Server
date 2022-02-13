@@ -12,4 +12,5 @@ module.exports = function(router) {
     router.get('/getUser/:userID', controller.getUser);
     router.post('/registerUser', controller.registerUser);
     router.post('/login', controller.login);
+    router.patch('/updateUserPassword', controller.updateUserPassword);
 };

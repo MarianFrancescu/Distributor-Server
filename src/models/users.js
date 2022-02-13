@@ -2,11 +2,7 @@ require('dotenv').config()
 const mongoose = require('mongoose');
 mongoose.connect(process.env.APP_DATABASE_URL, { useNewUrlParser: true });
 
-const ROLE = {
-    ADMIN: 'admin',
-    BASIC: 'basic',
-    SUPERADMIN: 'superAdmin'
-  }
+const ROLE = require('./roles');
 
 const wSchema = new mongoose.Schema({
     //TODO: add validation for all fields
