@@ -27,9 +27,20 @@ exports.getUser = function(req, res) {
     })
 }
 
+exports.updateUser = function(req, res) {
+    let userID = req.params.userID;
+    let userDetails = req.body;
+    let query = { _id: userID };
+    let data = { $set: userDetails };
+    Users.updateOne(query, data, function(err, docs) {
+        if(err)
+            res.send(err);
+        res.status(201).send(`Updated user details`);
+    });
+}
+
 exports.updateUserPassword = function(req, res) {
-    //userID to be modified to be caught as param
-    let userID = req.body.userID;
+    let userID = req.params.userID;
     let newPassword = bcrypt.hashSync(req.body.newPassword, salt);
     let query = { _id: userID };
     let data = { $set: { password: newPassword }};

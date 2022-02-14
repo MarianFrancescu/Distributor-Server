@@ -12,7 +12,8 @@ module.exports = function(router) {
     router.post('/login', controller.login);
     router.get('/users', controller.getUsers);
     router.get('/getUser/:userID', controller.getUser);
-    router.put('/updateUserPassword', controller.updateUserPassword);
+    router.patch('/updateUser/:userID', controller.updateUser);
+    router.put('/updateUserPassword/:userID', controller.updateUserPassword);
     router.delete('/deleteUser', controller.deleteUser);
 
 };

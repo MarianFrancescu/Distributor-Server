@@ -9,6 +9,7 @@ const wSchema = new mongoose.Schema({
     email: String,
     username: String,
     password: String,
+    studyInstitution: String,
     faculty: String,
     department: String,
     yearOfStudy: String,
