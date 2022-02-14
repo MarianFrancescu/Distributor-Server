@@ -13,6 +13,7 @@ const wSchema = new mongoose.Schema({
     faculty: String,
     department: String,
     yearOfStudy: String,
+    //disciplinesID: [],
     created: { type: Date, default: Date.now },
     role: { type: String, 
             default: ROLE.BASIC,

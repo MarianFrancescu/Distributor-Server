@@ -1,19 +1,21 @@
-const controller = require("./../controllers/usersController");
+const userController = require("./../controllers/usersController");
+const disciplineController = require("./../controllers/disciplinesController");
 
-const ROLE = {
-    SUPERADMIN: 'superAdmin',
-    ADMIN: 'admin',
-    BASIC: 'basic'
-  }
+const ROLE = require('./../models/roles');
 
 module.exports = function(router) {
-    router.get('/', controller.getDefault);
-    router.post('/registerUser', controller.registerUser);
-    router.post('/login', controller.login);
-    router.get('/users', controller.getUsers);
-    router.get('/getUser/:userID', controller.getUser);
-    router.patch('/updateUser/:userID', controller.updateUser);
-    router.put('/updateUserPassword/:userID', controller.updateUserPassword);
-    router.delete('/deleteUser', controller.deleteUser);
+    router.get('/', userController.getDefault);
+    router.post('/registerUser', userController.registerUser);
+    router.post('/login', userController.login);
+    router.get('/users', userController.getUsers);
+    router.get('/user/:userID', userController.getUser);
+    router.patch('/updateUser/:userID', userController.updateUser);
+    router.put('/updateUserPassword/:userID', userController.updateUserPassword);
+    router.delete('/deleteUser', userController.deleteUser);
+
+    //routes for discipline endpoints
+    router.post('/addDiscipline', disciplineController.addDiscipline);
+    router.get('/disciplines', disciplineController.getDisciplines);
+    router.get('/discipline/:disciplineID', disciplineController.getDiscipline);
 
 };
