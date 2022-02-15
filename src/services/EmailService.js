@@ -23,45 +23,31 @@
 // }
 require('dotenv').config();
 const nodemailer = require("nodemailer");
-const { google } = require("googleapis");
 
-const sendCredentialEmail = (name, email) => {
-    let transporter = nodemailer.createTransport({
-        host: 'smtp.gmail.com',
-        port: 465,
-        secure: true,
+const sendCredentialEmail = async (name, email) => {
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
         auth: {
-            type: 'OAuth2',
             user: process.env.EMAIL,
-            clientId: process.env.CLIENT_ID,
-            clientSecret: process.env.CLIENT_SECRET,
-            refreshToken: process.env.REFRESH_TOKEN,
-            accessToken: process.env.ACCESS_TOKEN
+            pass: process.env.PASSWORD
         }
     });
-
-    let mail = {
-        to: `${email}`,
+    
+    const mailOptions = {
         from: process.env.EMAIL,
+        to: `${email}`,
         subject: 'Distributor account',
-        text:`Hello! You have just created an account for ${email} with username ${name}`,
-        }
-
-    transporter.sendMail(mail, function(err, info) {
-        if (err) {
-            console.log(err);
+        text:`Hello! You have just created an account for ${email} with username ${name}`
+    };
+    
+    transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+        console.log(error);
         } else {
-            console.log("info.messageId: " + info.messageId);
-            console.log("info.envelope: " + info.envelope);
-            console.log("info.accepted: " + info.accepted);
-            console.log("info.rejected: " + info.rejected);
-            console.log("info.pending: " + info.pending);
-            console.log("info.response: " + info.response);
+        console.log('Email sent: ' + info.response);
         }
-        transporter.close();
     });
 }
-
 module.exports = {
     sendCredentialEmail
   };
