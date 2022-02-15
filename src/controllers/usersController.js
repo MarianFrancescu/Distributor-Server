@@ -1,4 +1,5 @@
 const Users = require('./../models/users');
+const Disciplines = require('./../models/discipline');
 const jwt = require('jsonwebtoken');
 const emailService = require('./../services/EmailService');
 const bcrypt = require("bcryptjs");
@@ -108,4 +109,19 @@ exports.login = function(req, res) {
             res.send({status: "Login failed"});
         }
     });
+}
+
+exports.enrollToDiscipline = function(req, res) {
+    let disciplineID = req.params.disciplineID;
+    let userID = req.body.userID;
+
+    let query = { _id: disciplineID };
+    let data = { $push: { students: userID }};
+
+    Disciplines.updateOne(query, data, function(err, results){
+        if(err){
+            res.status(503).send("Server error");
+        }
+        res.status(201).send(`Added student to discipline`);
+    })
 }

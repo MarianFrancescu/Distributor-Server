@@ -31,3 +31,24 @@ exports.getDiscipline = function(req, res) {
         res.json(results);
     })
 }
+
+exports.updateDiscipline = function(req, res) {
+    let disciplineID = req.params.disciplineID;
+    let disciplineDetails = req.body;
+    let query = { _id: disciplineID };
+    let data = { $set: disciplineDetails };
+    Disciplines.updateOne(query, data, function(err, docs) {
+        if(err)
+            res.send(err);
+        res.status(201).send(`Updated discipline details`);
+    });
+}
+
+exports.deleteDiscipline = function(req, res) {
+    let disciplineID = req.params.disciplineID;
+    Disciplines.deleteOne({ _id: disciplineID }, function(err, result) {
+        if(err)
+            res.send(err);
+        res.status(201).send('Deleted discipline');
+    });
+}
