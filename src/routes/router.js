@@ -1,5 +1,6 @@
 const userController = require("./../controllers/usersController");
 const disciplineController = require("./../controllers/disciplinesController");
+const preferenceController = require("./../controllers/preferencesController");
 
 const ROLE = require('./../models/roles');
 
@@ -20,5 +21,12 @@ module.exports = function(router) {
     router.get('/discipline/:disciplineID', disciplineController.getDiscipline);
     router.patch('/updateDiscipline/:disciplineID', disciplineController.updateDiscipline);
     router.delete('/deleteDiscipline/:disciplineID', disciplineController.deleteDiscipline);
+
+    //routes for preference endpoints
+    router.post("/addPreference/:disciplineID", preferenceController.addDisciplinePreferences);
+    router.get("/preferences", preferenceController.getPreferences);
+    router.get("/preference/:preferenceID", preferenceController.addDisciplinePreferences);
+    router.patch("/updatePreference/:preferenceID", preferenceController.updatePreference);
+
 
 };

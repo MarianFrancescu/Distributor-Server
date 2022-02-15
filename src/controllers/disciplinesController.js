@@ -8,7 +8,7 @@ exports.addDiscipline = function(req, res) {
     discipline.save({}, function(err) {
         if(err)
             res.send(err);
-        res.status(201).send(`Subject ${disciplineName} created successfuly`);
+        res.status(201).send(`Discipline ${disciplineName} created successfuly`);
     });
 }
 

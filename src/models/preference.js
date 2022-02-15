@@ -4,10 +4,10 @@ mongoose.connect(process.env.APP_DATABASE_URL, { useNewUrlParser: true });
 
 const wSchema = mongoose.Schema({
     name: String,
-    student: { type: mongoose.Schema.Types.ObjectId, ref: 'Users' }
+    userID: { type: mongoose.Schema.Types.ObjectId, ref: 'Users' }
     ,
-    discipline: { type: mongoose.Schema.Types.ObjectId, ref: 'Disciplines' },
-    preferences: [String],
+    disciplineID: { type: mongoose.Schema.Types.ObjectId, ref: 'Disciplines' },
+    options: [String],
     created: { type: Date, default: Date.now }
 });
 
