@@ -29,7 +29,7 @@ exports.getPreferences = function(req, res) {
 exports.getPreference = function(req, res) {
     let preferenceID = req.params.preferenceID;
 
-    Disciplines.findById(preferenceID, function(err, results){
+    Preferences.findById(preferenceID, function(err, results){
         if(err){
             res.status(503).send("Server error");
         }
@@ -42,9 +42,9 @@ exports.updatePreference = function(req, res) {
     let preferenceDetails = req.body;
     let query = { _id: preferenceID };
     let data = { $set: preferenceDetails };
-    Disciplines.updateOne(query, data, function(err, docs) {
+    Preferences.updateOne(query, data, function(err, docs) {
         if(err)
             res.send(err);
-        res.status(201).send(`Updated discipline details`);
+        res.status(201).send(`Updated preference details`);
     });
 }
