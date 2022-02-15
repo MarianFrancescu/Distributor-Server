@@ -4,12 +4,11 @@ mongoose.connect(process.env.APP_DATABASE_URL, { useNewUrlParser: true });
 
 const wSchema = mongoose.Schema({
     name: String,
-    students: [
-        { type: mongoose.Schema.Types.ObjectId, ref: 'Users' }
-    ],
-    //in timetable we could have array of time + students 
-    timetable: [String],
+    student: { type: mongoose.Schema.Types.ObjectId, ref: 'Users' }
+    ,
+    discipline: { type: mongoose.Schema.Types.ObjectId, ref: 'Disciplines' },
+    preferences: [String],
     created: { type: Date, default: Date.now }
 });
 
-module.exports = mongoose.model('Disciplines', wSchema);
+module.exports = mongoose.model('Preferences', wSchema);
