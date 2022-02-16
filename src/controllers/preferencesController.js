@@ -77,7 +77,7 @@ exports.insertUserPreferences = function(req, res) {
         };
 
         let query = { "_id": disciplineID, "timetable.option": timetableDetails.option };
-        let data = { $push: { "timetable.$.students": timetableDetails.students} };
+        let data = { $addToSet: { "timetable.$.students": timetableDetails.students} };
         Disciplines.updateOne(query, data, function(err, docs) {
             if(err)
                 res.send(err);

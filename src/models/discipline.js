@@ -8,7 +8,7 @@ const wSchema = mongoose.Schema({
         { type: mongoose.Schema.Types.ObjectId, ref: 'Users' }
     ],
     //in timetable we could have array of time + students 
-    timetable: [{option: String, students: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Users', unique : true, dropDups: true}]}],
+    timetable: [{option: String, students: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Users', unique : true }]}],
     created: { type: Date, default: Date.now }
 });
 
