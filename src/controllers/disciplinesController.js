@@ -32,11 +32,12 @@ exports.getDiscipline = function(req, res) {
     })
 }
 
+//think there's need of separate update discipline timetable endpoint
 exports.updateDiscipline = function(req, res) {
     let disciplineID = req.params.disciplineID;
     let disciplineDetails = req.body;
     let query = { _id: disciplineID };
-    let data = { $set: disciplineDetails };
+    let data = { $push: disciplineDetails };
     Disciplines.updateOne(query, data, function(err, docs) {
         if(err)
             res.send(err);

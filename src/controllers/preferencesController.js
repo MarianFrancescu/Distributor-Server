@@ -48,3 +48,57 @@ exports.updatePreference = function(req, res) {
         res.status(201).send(`Updated preference details`);
     });
 }
+
+// function retrieveUser(userID, disciplineID, res, callback) {
+//     Preferences.findOne({userID: userID, disciplineID: disciplineID}, function(err, result) {
+//       if (err) {
+//         callback(err, null);
+//       } else {
+//         res.json(result);
+//         callback(null, result.options);
+//       }
+//     });
+//   };
+
+exports.insertUserPreferences = function(req, res) {
+    let disciplineID = req.params.disciplineID;
+    let userID = req.params.userID;
+
+    Preferences.findOne({userID: userID, disciplineID: disciplineID}, function(err, results){
+        if(err){
+            res.status(503).send("Server error");
+        }
+        let userOptions = [];
+        userOptions = (results.options);
+
+        let timetableDetails = {
+            option: userOptions[0],
+            students: userID            
+        };
+
+        let query = { "_id": disciplineID, "timetable.option": timetableDetails.option };
+        let data = { $push: { "timetable.$.students": timetableDetails.students} };
+        Disciplines.updateOne(query, data, function(err, docs) {
+            if(err)
+                res.send(err);
+            res.status(201).send(`Updated discipline details`);
+        });
+    });
+    // retrieveUser(userID, disciplineID, res, function(err, options) {
+    //     if (err) {
+    //       console.log(err);
+    //     }
+    //     userOptions = options;
+    //     console.log(userOptions);
+    //   });
+
+    
+
+    // let query = { _id: disciplineID };
+    // let data = { $set: disciplineDetails };
+    // Disciplines.updateOne(query, data, function(err, docs) {
+    //     if(err)
+    //         res.send(err);
+    //     res.status(201).send(`Updated discipline details`);
+    // });
+}
