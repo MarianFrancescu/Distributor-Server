@@ -90,23 +90,22 @@ exports.insertUserPreferences =  function(req, res) {
                 }
                 //log that option not exists
             });
-            console.log(userOptions[index]);
-            
-        });
 
-        let timetableDetails = {
-            option: userOptions[index],
-            students: userID            
-        };
-        console.log(timetableDetails.option);
-
-        let query = { "_id": disciplineID, "timetable.option": timetableDetails.option };
-        let data = { $addToSet: { "timetable.$.students": timetableDetails.students} };
-        Disciplines.updateOne(query, data, function(err, docs) {
-            if(err)
-                res.send(err);
-            res.status(201).send(`Updated discipline details`);
+            let timetableDetails = {
+                option: userOptions[index],
+                students: userID            
+            };
+            console.log(timetableDetails.option);
+    
+            let query = { "_id": disciplineID, "timetable.option": timetableDetails.option };
+            let data = { $addToSet: { "timetable.$.students": timetableDetails.students} };
+            Disciplines.updateOne(query, data, function(err, docs) {
+                if(err)
+                    res.send(err);
+                res.status(201).send(`Updated discipline details`);
+            });
         });
+        
     });
     // retrieveUser(userID, disciplineID, res, function(err, options) {
     //     if (err) {
