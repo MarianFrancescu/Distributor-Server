@@ -60,7 +60,7 @@ exports.updatePreference = function(req, res) {
 //     });
 //   };
 
-exports.insertUserPreferences = function(req, res) {
+exports.insertUserPreferences =  function(req, res) {
     let disciplineID = req.params.disciplineID;
     let userID = req.params.userID;
 
@@ -71,10 +71,37 @@ exports.insertUserPreferences = function(req, res) {
         let userOptions = [];
         userOptions = (results.options);
 
-        let timetableDetails = {
-            option: userOptions[0],
-            students: userID            
-        };
+        
+        let index = 0;
+
+        Disciplines.findById(disciplineID, function(err, result) {
+            if(err){
+                console.log(err);
+            }
+            
+            result.timetable.forEach(element => {
+                if(element.option === userOptions[index]){
+                    if(element.students.length < 2)
+                        console.log(2);
+                    else {
+                        index++;
+                    }
+                    // console.log(index);
+                }
+                //log that option not exists
+            });
+            console.log(userOptions[index]);
+            let timetableDetails = {
+                option: userOptions[index],
+                students: userID            
+            };
+        });
+
+        // let timetableDetails = {
+        //     option: userOptions[index],
+        //     students: userID            
+        // };
+        console.log(timetableDetails.option);
 
         let query = { "_id": disciplineID, "timetable.option": timetableDetails.option };
         let data = { $addToSet: { "timetable.$.students": timetableDetails.students} };
