@@ -91,16 +91,13 @@ exports.insertUserPreferences =  function(req, res) {
                 //log that option not exists
             });
             console.log(userOptions[index]);
-            let timetableDetails = {
-                option: userOptions[index],
-                students: userID            
-            };
+            
         });
 
-        // let timetableDetails = {
-        //     option: userOptions[index],
-        //     students: userID            
-        // };
+        let timetableDetails = {
+            option: userOptions[index],
+            students: userID            
+        };
         console.log(timetableDetails.option);
 
         let query = { "_id": disciplineID, "timetable.option": timetableDetails.option };
