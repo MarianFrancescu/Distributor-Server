@@ -9,8 +9,8 @@ exports.getDefault = function(req, res) {
     res.send("You are on root route");
 };
 
-exports.getUsers = function(req, res) {
-    Users.find({}, function(err, results){
+exports.getUsers = (req, res) => {
+    Users.find({}, (err, results) => {
         if(err){
             res.status(503).send("Server error");
         }
@@ -18,9 +18,9 @@ exports.getUsers = function(req, res) {
     });
 };
 
-exports.getUser = function(req, res) {
+exports.getUser = (req, res) => {
     let userID = req.params.userID;
-    Users.findById(userID, function(err, results){
+    Users.findById(userID, (err, results) => {
         if(err){
             res.status(503).send("Server error");
         }
@@ -28,40 +28,40 @@ exports.getUser = function(req, res) {
     })
 }
 
-exports.updateUser = function(req, res) {
+exports.updateUser = (req, res) => {
     let userID = req.params.userID;
     let userDetails = req.body;
     let query = { _id: userID };
     let data = { $set: userDetails };
-    Users.updateOne(query, data, function(err, docs) {
+    Users.updateOne(query, data, (err, docs) => {
         if(err)
             res.send(err);
         res.status(201).send(`Updated user details`);
     });
 }
 
-exports.updateUserPassword = function(req, res) {
+exports.updateUserPassword = (req, res) => {
     let userID = req.params.userID;
     let newPassword = bcrypt.hashSync(req.body.newPassword, salt);
     let query = { _id: userID };
     let data = { $set: { password: newPassword }};
-    Users.updateOne(query, data, function(err, docs) {
+    Users.updateOne(query, data, (err, docs) => {
         if(err)
             res.send(err);
         res.status(201).send(`Updated user password`);
     });
 }
 
-exports.deleteUser = function(req, res) {
+exports.deleteUser = (req, res) => {
     let userID = req.body.userID;
-    Users.deleteOne({ _id: userID }, function(err, result) {
+    Users.deleteOne({ _id: userID }, (err, result) => {
         if(err)
             res.send(err);
         res.status(201).send('Deleted user');
     });
 }
 
-exports.registerUser = async function(req, res) {
+exports.registerUser = async (req, res) => {
     let email = req.body.email;
     let username = req.body.username;
     let password = bcrypt.hashSync(req.body.password, salt);
@@ -76,7 +76,7 @@ exports.registerUser = async function(req, res) {
         user.username = username;
         user.password = password;
         emailService.sendCredentialEmail(username, email);
-        await user.save({}, function(err){
+        await user.save({}, (err) => {
             if(err)
                 res.end(err);
             res.status(201).send(`Succesfully created account for ${email}`);
@@ -84,11 +84,11 @@ exports.registerUser = async function(req, res) {
     }
 };
 
-exports.login = function(req, res) {
+exports.login = (req, res) => {
     let email = req.body.email;
     let password = req.body.password;
 
-    Users.find({email: email}, function(err, result){
+    Users.find({email: email}, (err, result) => {
         if(err){
             res.send(err);
         }
@@ -100,7 +100,7 @@ exports.login = function(req, res) {
             }, 
                 "secret", //secret is the key of the token
                 {expiresIn: '1h'}, 
-                function(err, token) {
+                (err, token) => {
                     if(err)
                         throw err;
                     res.send({token: token})
@@ -111,14 +111,14 @@ exports.login = function(req, res) {
     });
 }
 
-exports.enrollToDiscipline = function(req, res) {
+exports.enrollToDiscipline = (req, res) => {
     let disciplineID = req.params.disciplineID;
     let userID = req.body.userID;
 
     let query = { _id: disciplineID };
     let data = { $push: { students: userID }};
 
-    Disciplines.updateOne(query, data, function(err, results){
+    Disciplines.updateOne(query, data, (err, results) => {
         if(err){
             res.status(503).send("Server error");
         }

@@ -2,7 +2,7 @@ const Disciplines = require("../models/discipline");
 const Users = require('./../models/users');
 const Preferences = require('./../models/preference');
 
-exports.addDisciplinePreferences = function(req, res) {
+exports.addDisciplinePreferences = (req, res) => {
     let disciplineID = req.params.disciplineID;
     let userID = req.body.userID;
     let options = req.body.options;
@@ -10,15 +10,15 @@ exports.addDisciplinePreferences = function(req, res) {
     preference.userID = userID;
     preference.disciplineID = disciplineID;
     preference.options = options;
-    preference.save({}, function(err) {
+    preference.save({}, (err) => {
         if(err)
             res.send(err);
         res.status(201).send(`Preference saved successfuly`);
     });
 }
 
-exports.getPreferences = function(req, res) {
-    Preferences.find({}, function(err, results){
+exports.getPreferences = (req, res) => {
+    Preferences.find({}, (err, results) => {
         if(err){
             res.status(503).send("Server error");
         }
@@ -26,10 +26,10 @@ exports.getPreferences = function(req, res) {
     })
 }
 
-exports.getPreference = function(req, res) {
+exports.getPreference = (req, res) => {
     let preferenceID = req.params.preferenceID;
 
-    Preferences.findById(preferenceID, function(err, results){
+    Preferences.findById(preferenceID, (err, results) => {
         if(err){
             res.status(503).send("Server error");
         }
@@ -37,34 +37,23 @@ exports.getPreference = function(req, res) {
     })
 }
 
-exports.updatePreference = function(req, res) {
+exports.updatePreference = (req, res) => {
     let preferenceID = req.params.preferenceID;
     let preferenceDetails = req.body;
     let query = { _id: preferenceID };
     let data = { $set: preferenceDetails };
-    Preferences.updateOne(query, data, function(err, docs) {
+    Preferences.updateOne(query, data, (err, docs) => {
         if(err)
             res.send(err);
         res.status(201).send(`Updated preference details`);
     });
 }
 
-// function retrieveUser(userID, disciplineID, res, callback) {
-//     Preferences.findOne({userID: userID, disciplineID: disciplineID}, function(err, result) {
-//       if (err) {
-//         callback(err, null);
-//       } else {
-//         res.json(result);
-//         callback(null, result.options);
-//       }
-//     });
-//   };
-
-exports.insertUserPreferences =  function(req, res) {
+exports.insertUserPreferences = (req, res) => {
     let disciplineID = req.params.disciplineID;
     let userID = req.params.userID;
 
-    Preferences.findOne({userID: userID, disciplineID: disciplineID}, function(err, results){
+    Preferences.findOne({userID: userID, disciplineID: disciplineID}, (err, results) => {
         if(err){
             res.status(503).send("Server error");
         }
@@ -74,7 +63,7 @@ exports.insertUserPreferences =  function(req, res) {
         
         let index = 0;
 
-        Disciplines.findById(disciplineID, function(err, result) {
+        Disciplines.findById(disciplineID, (err, result) => {
             if(err){
                 console.log(err);
             }
@@ -99,7 +88,7 @@ exports.insertUserPreferences =  function(req, res) {
     
             let query = { "_id": disciplineID, "timetable.option": timetableDetails.option };
             let data = { $addToSet: { "timetable.$.students": timetableDetails.students} };
-            Disciplines.updateOne(query, data, function(err, docs) {
+            Disciplines.updateOne(query, data, (err, docs) => {
                 if(err)
                     res.send(err);
                 res.status(201).send(`Updated discipline details`);
