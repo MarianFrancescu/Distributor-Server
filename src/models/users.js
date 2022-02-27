@@ -7,7 +7,9 @@ const ROLE = require('./roles');
 const wSchema = new mongoose.Schema({
     //TODO: add validation for all fields
     email: String,
-    username: String,
+    firstName: String,
+    lastName: String,
+    registrationNumber: String,
     password: String,
     studyInstitution: String,
     faculty: String,
