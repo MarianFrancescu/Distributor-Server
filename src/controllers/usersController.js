@@ -103,10 +103,11 @@ exports.login = (req, res) => {
                 (err, token) => {
                     if(err)
                         throw err;
-                    res.send({token: token})
+                    res.send({token: token,
+                                userID: result[0]._id});
             });
         } else {
-            res.send({status: "Login failed"});
+            res.status(401).send("Invalid password");
         }
     });
 }
