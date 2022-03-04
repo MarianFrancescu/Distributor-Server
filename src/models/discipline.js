@@ -9,6 +9,10 @@ const wSchema = mongoose.Schema({
     ],
     //in timetable we could have array of time + students 
     timetable: [{option: String, students: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Users', unique : true }]}],
+    studyInstitution: String,
+    faculty: String,
+    department: String,
+    studyYear: String,
     created: { type: Date, default: Date.now }
 });
 
