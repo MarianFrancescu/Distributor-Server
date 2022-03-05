@@ -14,12 +14,12 @@ const wSchema = new mongoose.Schema({
     studyInstitution: String,
     faculty: String,
     department: String,
-    yearOfStudy: String,
+    studyYear: String,
     //disciplinesID: [],
     created: { type: Date, default: Date.now },
-    role: { type: String, 
+    role: { type: String,
             default: ROLE.BASIC,
-            enum: [ROLE.ADMIN, ROLE.BASIC, ROLE.SUPERADMIN] 
+            enum: [ROLE.ADMIN, ROLE.BASIC, ROLE.SUPERADMIN]
         },
 },{
     collection: "Users"

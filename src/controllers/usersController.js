@@ -63,7 +63,8 @@ exports.deleteUser = (req, res) => {
 
 exports.registerUser = async (req, res) => {
     let email = req.body.email;
-    let username = req.body.username;
+    let firstName = req.body.firstName;
+    let lastName = req.body.lastName;
     let password = bcrypt.hashSync(req.body.password, salt);
 
     let user = await Users.findOne({email: req.body.email});
@@ -73,9 +74,10 @@ exports.registerUser = async (req, res) => {
     } else{
         user = new Users();
         user.email = email;
-        user.username = username;
+        user.firstName = firstName;
+        user.lastName = lastName;
         user.password = password;
-        emailService.sendCredentialEmail(username, email);
+        emailService.sendCredentialEmail(`${firstName} + ${lastName}`, email);
         await user.save({}, (err) => {
             if(err)
                 res.end(err);
@@ -97,9 +99,9 @@ exports.login = (req, res) => {
             jwt.sign({
                 email: result[0].email,
                 userID: result[0]._id
-            }, 
+            },
                 "secret", //secret is the key of the token
-                {expiresIn: '1h'}, 
+                {expiresIn: '1h'},
                 (err, token) => {
                     if(err)
                         throw err;
