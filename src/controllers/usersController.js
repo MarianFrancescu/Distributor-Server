@@ -34,9 +34,10 @@ exports.updateUser = (req, res) => {
     let query = { _id: userID };
     let data = { $set: userDetails };
     Users.updateOne(query, data, (err, docs) => {
-        if(err)
-            res.send(err);
-        res.status(201).send(`Updated user details`);
+        if(err){
+                res.send(err);
+            }
+        res.status(200).send(`Updated user details`);
     });
 }
 
@@ -48,16 +49,16 @@ exports.updateUserPassword = (req, res) => {
     Users.updateOne(query, data, (err, docs) => {
         if(err)
             res.send(err);
-        res.status(201).send(`Updated user password`);
+        res.status(200).send(`Updated user password`);
     });
 }
 
 exports.deleteUser = (req, res) => {
-    let userID = req.body.userID;
+    let userID = req.params.userID;
     Users.deleteOne({ _id: userID }, (err, result) => {
         if(err)
             res.send(err);
-        res.status(201).send('Deleted user');
+        res.status(200).send('Deleted user');
     });
 }
 
@@ -91,10 +92,12 @@ exports.login = (req, res) => {
     let password = req.body.password;
 
     Users.find({email: email}, (err, result) => {
+        console.log(err)
         if(err){
+            console.log(1)
             res.send(err);
         }
-
+        else 
         if(bcrypt.compareSync(password, result[0].password)){
             jwt.sign({
                 email: result[0].email,
