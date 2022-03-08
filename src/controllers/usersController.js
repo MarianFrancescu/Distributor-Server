@@ -87,21 +87,18 @@ exports.registerUser = async (req, res) => {
     }
 };
 
-exports.login = (req, res) => {
+exports.login = async (req, res) => {
     let email = req.body.email;
     let password = req.body.password;
 
-    Users.find({email: email}, (err, result) => {
-        console.log(err)
-        if(err){
-            console.log(1)
-            res.send(err);
-        }
-        else 
-        if(bcrypt.compareSync(password, result[0].password)){
+    let user = await Users.findOne({email: email});
+    console.log(user);
+
+    if(user) {
+        if(bcrypt.compareSync(password, user.password)){
             jwt.sign({
-                email: result[0].email,
-                userID: result[0]._id
+                email: user.email,
+                userID: user._id
             },
                 "secret", //secret is the key of the token
                 {expiresIn: '1h'},
@@ -109,12 +106,14 @@ exports.login = (req, res) => {
                     if(err)
                         throw err;
                     res.send({token: token,
-                                userID: result[0]._id});
+                                userID: user._id});
             });
         } else {
             res.status(401).send("Invalid password");
         }
-    });
+    } else {
+        res.status(401).send("User does not exist");
+    }
 }
 
 exports.enrollToDiscipline = (req, res) => {
