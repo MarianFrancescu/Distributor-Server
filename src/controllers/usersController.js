@@ -92,8 +92,7 @@ exports.login = async (req, res) => {
     let password = req.body.password;
 
     let user = await Users.findOne({email: email});
-    console.log(user);
-
+    
     if(user) {
         if(bcrypt.compareSync(password, user.password)){
             jwt.sign({
