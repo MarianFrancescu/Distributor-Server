@@ -6,6 +6,7 @@ exports.addDiscipline = (req, res) => {
     let discipline = new Disciplines();
     discipline.name = disciplineName;
     discipline.save({}, function(err) {
+        console.log(disciplineName)
         if(err)
             res.send(err);
         res.status(201).send(`Discipline ${disciplineName} created successfuly`);
@@ -14,6 +15,22 @@ exports.addDiscipline = (req, res) => {
 
 exports.getDisciplines = (req, res) => {
     Disciplines.find({}, (err, results) => {
+        if(err){
+            res.status(503).send("Server error");
+        }
+        res.json(results);
+    });
+}
+
+exports.getSpecificDisciplines = async (req, res) => {
+    let user = await Users.findOne({_id: req.params.userID});
+
+    Disciplines.find({
+        studyInstitution: user.studyInstitution,
+        faculty: user.faculty,
+        department: user.department,
+        studyYear: user.studyYear
+    }, (err, results) => {
         if(err){
             res.status(503).send("Server error");
         }

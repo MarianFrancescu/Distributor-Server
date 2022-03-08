@@ -18,6 +18,7 @@ module.exports = function(router) {
     //routes for discipline endpoints
     router.post('/addDiscipline', disciplineController.addDiscipline);
     router.get('/disciplines', disciplineController.getDisciplines);
+    router.get('/specificDisciplines/:userID', disciplineController.getSpecificDisciplines);
     router.get('/discipline/:disciplineID', disciplineController.getDiscipline);
     router.patch('/updateDiscipline/:disciplineID', disciplineController.updateDiscipline);
     router.delete('/deleteDiscipline/:disciplineID', disciplineController.deleteDiscipline);
