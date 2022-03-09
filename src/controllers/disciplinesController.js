@@ -1,4 +1,5 @@
 const Disciplines = require("../models/discipline");
+const Users = require("../models/users");
 
 //only admins can add disciplines
 exports.addDiscipline = (req, res) => {
@@ -6,9 +7,8 @@ exports.addDiscipline = (req, res) => {
     let discipline = new Disciplines();
     discipline.name = disciplineName;
     discipline.save({}, function(err) {
-        console.log(disciplineName)
         if(err)
-            res.send(err);
+            console.log(err)
         res.status(201).send(`Discipline ${disciplineName} created successfuly`);
     });
 }
