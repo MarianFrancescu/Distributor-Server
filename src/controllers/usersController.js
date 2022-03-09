@@ -129,3 +129,17 @@ exports.enrollToDiscipline = (req, res) => {
         res.status(201).send(`Added student to discipline`);
     })
 }
+
+exports.getUserDisciplines = async (req, res) => {
+    let userID = req.params.userID;
+
+    Disciplines.find({
+        students: { $all: userID }
+    }, (err, results) => {
+            if(err){
+                console.log(err)
+                res.status(503).send("Server error");
+            }
+            res.json(results);
+    });
+}

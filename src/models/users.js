@@ -15,7 +15,7 @@ const wSchema = new mongoose.Schema({
     faculty: String,
     department: String,
     studyYear: String,
-    //disciplinesID: [],
+    // disciplinesID: [{ type: String, ref: 'Disciplines', unique : true }],
     created: { type: Date, default: Date.now },
     role: { type: String,
             default: ROLE.BASIC,
