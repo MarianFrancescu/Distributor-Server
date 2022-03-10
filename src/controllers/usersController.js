@@ -120,7 +120,7 @@ exports.enrollToDiscipline = (req, res) => {
     let userID = req.body.userID;
 
     let query = { _id: disciplineID };
-    let data = { $push: { students: userID }};
+    let data = { $addToSet: { students: userID }};
 
     Disciplines.updateOne(query, data, (err, results) => {
         if(err){
