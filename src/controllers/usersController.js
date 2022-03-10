@@ -130,6 +130,21 @@ exports.enrollToDiscipline = (req, res) => {
     })
 }
 
+exports.unenrollFromDiscipline = (req, res) => {
+    let disciplineID = req.params.disciplineID;
+    let userID = req.body.userID;
+
+    let query = { _id: disciplineID };
+    let data = { $pull: { students: userID }};
+
+    Disciplines.updateOne(query, data, (err, results) => {
+        if(err){
+            res.status(503).send("Server error");
+        }
+        res.status(201).send(`Removes student from discipline`);
+    })
+}
+
 exports.getUserDisciplines = async (req, res) => {
     let userID = req.params.userID;
 

@@ -14,6 +14,7 @@ module.exports = function(router) {
     router.put('/updateUserPassword/:userID', userController.updateUserPassword);
     router.delete('/deleteUser/:userID', userController.deleteUser);
     router.put('/discipline/:disciplineID/enroll', userController.enrollToDiscipline);
+    router.put('/discipline/:disciplineID/unenroll', userController.unenrollFromDiscipline);
     router.get('/user/:userID/disciplines', userController.getUserDisciplines);
 
     //routes for discipline endpoints
