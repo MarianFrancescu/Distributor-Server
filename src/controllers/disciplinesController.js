@@ -54,7 +54,7 @@ exports.updateDiscipline = (req, res) => {
     let disciplineID = req.params.disciplineID;
     let disciplineDetails = req.body;
     let query = { _id: disciplineID };
-    let data = { $push: disciplineDetails };
+    let data = { $set: disciplineDetails };
     Disciplines.updateOne(query, data, (err, docs) => {
         if(err)
             res.send(err);

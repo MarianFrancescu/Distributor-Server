@@ -4,6 +4,7 @@ mongoose.connect(process.env.APP_DATABASE_URL, { useNewUrlParser: true });
 
 const wSchema = mongoose.Schema({
     name: String,
+    teacher: String,
     students: [
         { type: mongoose.Schema.Types.ObjectId, ref: 'Users' }
     ],
