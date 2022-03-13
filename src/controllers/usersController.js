@@ -104,8 +104,10 @@ exports.login = async (req, res) => {
                 (err, token) => {
                     if(err)
                         throw err;
-                    res.send({token: token,
-                                userID: user._id});
+                    res.send({
+                        token: token,
+                        userID: user._id,
+                        role: user.role});
             });
         } else {
             res.status(401).send("Invalid password");
