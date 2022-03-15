@@ -3,13 +3,24 @@ const Users = require("../models/users");
 
 //only admins can add disciplines
 exports.addDiscipline = (req, res) => {
-    let disciplineName = req.body.name;
+    let studyInstitution = req.body.studyInstitution;
+    let faculty = req.body.faculty;
+    let department = req.body.department;
+    let studyYear = req.body.studyYear;
+    let name = req.body.name;
+    let teacher = req.body.teacher;
     let discipline = new Disciplines();
-    discipline.name = disciplineName;
+    discipline.name = name;
+    discipline.teacher = teacher;
+    discipline.studyInstitution = studyInstitution;
+    discipline.faculty = faculty;
+    discipline.department = department;
+    discipline.studyYear = studyYear;
+
     discipline.save({}, function(err) {
         if(err)
             console.log(err)
-        res.status(201).send(`Discipline ${disciplineName} created successfuly`);
+        res.status(201).send(`Discipline ${name} created successfuly`);
     });
 }
 
