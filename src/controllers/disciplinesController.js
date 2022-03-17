@@ -9,6 +9,8 @@ exports.addDiscipline = (req, res) => {
     let studyYear = req.body.studyYear;
     let name = req.body.name;
     let teacher = req.body.teacher;
+    let timetable = req.body.timetable;
+    
     let discipline = new Disciplines();
     discipline.name = name;
     discipline.teacher = teacher;
@@ -16,6 +18,7 @@ exports.addDiscipline = (req, res) => {
     discipline.faculty = faculty;
     discipline.department = department;
     discipline.studyYear = studyYear;
+    discipline.timetable = timetable
 
     discipline.save({}, function(err) {
         if(err)
