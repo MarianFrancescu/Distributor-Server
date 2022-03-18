@@ -37,14 +37,39 @@ exports.getPreference = (req, res) => {
     })
 }
 
+exports.getUserPreferenceByDiscipline = (req, res) => {
+    let disciplineID = req.params.disciplineID;
+    let userID = req.params.userID;
+
+    Preferences.findOne({userID: userID, disciplineID: disciplineID}, (err, results) => {
+        if(err){
+            res.status(503).send("Server error");
+        }
+        res.json(results);
+    })
+}
+
+// exports.updatePreference = (req, res) => {
+//     let preferenceID = req.params.preferenceID;
+//     let preferenceDetails = req.body;
+//     let query = { _id: preferenceID };
+//     let data = { $set: preferenceDetails };
+//     Preferences.updateOne(query, data, (err, docs) => {
+//         if(err)
+//             res.send(err);
+//         res.status(201).send(`Updated preference details`);
+//     });
+// }
+
 exports.updatePreference = (req, res) => {
-    let preferenceID = req.params.preferenceID;
-    let preferenceDetails = req.body;
-    let query = { _id: preferenceID };
-    let data = { $set: preferenceDetails };
+    let disciplineID = req.params.disciplineID;
+    let userID = req.params.userID;
+    let preferenceDetails = req.body.options;
+    let query = { userID: userID, disciplineID: disciplineID };
+    let data = { $set: {options: preferenceDetails} };
     Preferences.updateOne(query, data, (err, docs) => {
         if(err)
-            res.send(err);
+            res.status(503).send("Server error");
         res.status(201).send(`Updated preference details`);
     });
 }

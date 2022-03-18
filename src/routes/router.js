@@ -29,7 +29,9 @@ module.exports = function(router) {
     router.post("/addPreference/:disciplineID", preferenceController.addDisciplinePreferences);
     router.get("/preferences", preferenceController.getPreferences);
     router.get("/preference/:preferenceID", preferenceController.getPreference);
-    router.patch("/updatePreference/:preferenceID", preferenceController.updatePreference);
+    router.get("/preference/user/:userID/discipline/:disciplineID", preferenceController.getUserPreferenceByDiscipline);
+    // router.patch("/updatePreference/:preferenceID", preferenceController.updatePreference);
+    router.put("/preference/user/:userID/discipline/:disciplineID/update", preferenceController.updatePreference);
     router.patch("/user/:userID/discipline/:disciplineID", preferenceController.insertUserPreferences);
 
 };
