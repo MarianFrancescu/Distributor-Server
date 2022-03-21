@@ -33,5 +33,6 @@ module.exports = function(router) {
     // router.patch("/updatePreference/:preferenceID", preferenceController.updatePreference);
     router.put("/preference/user/:userID/discipline/:disciplineID/update", preferenceController.updatePreference);
     router.patch("/user/:userID/discipline/:disciplineID", preferenceController.insertUserPreferences);
+    router.put("/user/:userID/discipline/:disciplineID/reset", preferenceController.resetDisciplinePreference);
 
 };

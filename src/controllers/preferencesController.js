@@ -74,6 +74,19 @@ exports.updatePreference = (req, res) => {
     });
 }
 
+exports.resetDisciplinePreference = (req, res) => {
+    let disciplineID = req.params.disciplineID;
+    let userID = req.params.userID;
+
+    let query = { "_id": disciplineID };
+    let data = { $pull: { "timetable.$[].students": userID } };
+    Disciplines.updateOne(query, data, (err, docs) => {
+        if(err)
+            res.status(502).send(err);
+        res.status(201).send(`Updated discipline details`);
+    });    
+}
+
 exports.insertUserPreferences = (req, res) => {
     let disciplineID = req.params.disciplineID;
     let userID = req.params.userID;
