@@ -87,6 +87,17 @@ exports.resetDisciplinePreference = (req, res) => {
     });    
 }
 
+exports.deletePreferencesByDiscipline = (req, res) => {
+    let disciplineID = req.params.disciplineID;
+
+    let query = { "disciplineID": disciplineID };
+    Preferences.deleteMany(query, (err, docs) => {
+        if(err)
+            res.status(502).send(err);
+        res.status(201).send(`Deleted discipline preferences`);
+    });    
+}
+
 exports.insertUserPreferences = (req, res) => {
     let disciplineID = req.params.disciplineID;
     let userID = req.params.userID;
