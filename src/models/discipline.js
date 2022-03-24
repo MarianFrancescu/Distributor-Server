@@ -14,6 +14,7 @@ const wSchema = mongoose.Schema({
     faculty: String,
     department: String,
     studyYear: String,
+    maxNoOfStudentsPerTimetable: Number,
     created: { type: Date, default: Date.now }
 });
 

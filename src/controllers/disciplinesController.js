@@ -10,6 +10,7 @@ exports.addDiscipline = (req, res) => {
     let name = req.body.name;
     let teacher = req.body.teacher;
     let timetable = req.body.timetable;
+    let maxNoOfStudentsPerTimetable = req.body.maxNoOfStudentsPerTimetable;
     
     let discipline = new Disciplines();
     discipline.name = name;
@@ -18,7 +19,8 @@ exports.addDiscipline = (req, res) => {
     discipline.faculty = faculty;
     discipline.department = department;
     discipline.studyYear = studyYear;
-    discipline.timetable = timetable
+    discipline.timetable = timetable;
+    discipline.maxNoOfStudentsPerTimetable = maxNoOfStudentsPerTimetable;
 
     discipline.save({}, function(err) {
         if(err)
