@@ -119,7 +119,7 @@ exports.insertUserPreferences = (req, res) => {
             
             result.timetable.forEach(element => {
                 if(element.option === userOptions[index]){
-                    if(element.students.length < 2)
+                    if(element.students.length < result.maxNoOfStudentsPerTimetable)
                         console.log(2);
                     else {
                         index++;
