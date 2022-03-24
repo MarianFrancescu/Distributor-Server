@@ -87,6 +87,28 @@ exports.registerUser = async (req, res) => {
     }
 };
 
+exports.resetPassword = async (req, res) => {
+    let email = req.body.email;
+    let user = await Users.findOne({email: req.body.email});
+
+    if(!user){
+        return res.status(400).send("User does not exist!");
+    } else{
+        let userID = user._id;
+        let randomPassword = Math.random().toString(36).slice(-8);
+        let newPassword = bcrypt.hashSync(randomPassword, salt);
+        emailService.sendPasswordEmail(randomPassword, email);
+
+        let query = { _id: userID };
+        let data = { $set: { password: newPassword }};
+        Users.updateOne(query, data, (err, docs) => {
+            if(err)
+                res.send(err);
+            res.status(200).send(`Password was reset`);
+        });
+    }
+};
+
 exports.login = async (req, res) => {
     let email = req.body.email;
     let password = req.body.password;

@@ -12,6 +12,7 @@ module.exports = function(router) {
     router.get('/user/:userID', userController.getUser);
     router.patch('/updateUser/:userID', userController.updateUser);
     router.put('/updateUserPassword/:userID', userController.updateUserPassword);
+    router.put('/resetUserPassword', userController.resetPassword);
     router.delete('/deleteUser/:userID', userController.deleteUser);
     router.put('/discipline/:disciplineID/enroll', userController.enrollToDiscipline);
     router.put('/discipline/:disciplineID/unenroll', userController.unenrollFromDiscipline);
