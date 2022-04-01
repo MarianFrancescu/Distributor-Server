@@ -38,7 +38,6 @@ exports.getInstitution = (req, res) => {
 exports.updateInstitution = (req, res) => {
     let institutionID = req.params.institutionID;
     let institutionDetails = req.body;
-    console.log(institutionDetails.faculties);
     let query = { _id: institutionID };
     let data = { $set: institutionDetails };
     Institutions.updateOne(query, data, (err, docs) => {
