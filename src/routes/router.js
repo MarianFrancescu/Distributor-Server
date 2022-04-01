@@ -1,6 +1,7 @@
 const userController = require("./../controllers/usersController");
 const disciplineController = require("./../controllers/disciplinesController");
 const preferenceController = require("./../controllers/preferencesController");
+const institutionController = require("./../controllers/institutionsController");
 
 const ROLE = require('./../models/roles');
 
@@ -31,9 +32,17 @@ module.exports = function(router) {
     router.get("/preferences", preferenceController.getPreferences);
     router.get("/preference/:preferenceID", preferenceController.getPreference);
     router.get("/preference/user/:userID/discipline/:disciplineID", preferenceController.getUserPreferenceByDiscipline);
+    
     // router.patch("/updatePreference/:preferenceID", preferenceController.updatePreference);
     router.put("/preference/user/:userID/discipline/:disciplineID/update", preferenceController.updatePreference);
     router.patch("/user/:userID/discipline/:disciplineID", preferenceController.insertUserPreferences);
     router.put("/user/:userID/discipline/:disciplineID/reset", preferenceController.resetDisciplinePreference);
     router.delete("/preferences/discipline/:disciplineID/delete", preferenceController.deletePreferencesByDiscipline);
+
+    //routes for institutions endpoints
+    router.post("/institution/add", institutionController.addInstitution);
+    router.get("/institutions", institutionController.getInstitutions);
+    router.get("/institution/:institutionID", institutionController.getInstitution);
+    router.patch("/institution/:institutionID/update", institutionController.updateInstitution);
+    router.delete("/institution/:institutionID/delete", institutionController.deleteInstitution);
 };
