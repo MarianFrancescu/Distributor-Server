@@ -10,7 +10,7 @@ exports.addInstitution = (req, res) => {
 
     institution.save({}, function(err) {
         if(err)
-            console.log(err)
+            res.status(503).send("Server error");
         res.status(201).send(`Institution ${studyInstitution} created successfuly`);
     });
 }
