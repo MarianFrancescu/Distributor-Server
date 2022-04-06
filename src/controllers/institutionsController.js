@@ -18,12 +18,6 @@ exports.addInstitution = async (req, res) => {
             res.status(201).send(`Succesfully created institution ${studyInstitution}`);
         });
     }
-
-    institution.save({}, function(err) {
-        if(err)
-            res.status(503).send("Server error");
-        res.status(201).send(`Institution ${studyInstitution} created successfuly`);
-    });
 }
 
 exports.getInstitutions = (req, res) => {
