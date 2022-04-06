@@ -1,12 +1,23 @@
 const Institutions = require('../models/institution');
 
-exports.addInstitution = (req, res) => {
+exports.addInstitution = async (req, res) => {
     let studyInstitution = req.body.studyInstitution;
     let faculties = req.body.faculties;
 
-    let institution = new Institutions();
-    institution.studyInstitution = studyInstitution;
-    institution.faculties = faculties;
+    let institution = await Institutions.findOne({studyInstitution: req.body.studyInstitution});
+
+    if(institution){
+        return res.status(400).send("Instititution already exists!");
+    } else{
+        let institution = new Institutions();
+        institution.studyInstitution = studyInstitution;
+        institution.faculties = faculties;
+        await institution.save({}, (err) => {
+            if(err)
+                res.end(err);
+            res.status(201).send(`Succesfully created institution ${studyInstitution}`);
+        });
+    }
 
     institution.save({}, function(err) {
         if(err)
@@ -48,8 +59,8 @@ exports.updateInstitution = (req, res) => {
 }
 
 exports.deleteInstitution = (req, res) => {
-    let institutionID = req.params.institutionID;
-    Institutions.deleteOne({ _id: institutionID }, (err, result) => {
+    let studyInstitution = req.params.studyInstitution;
+    Institutions.deleteOne({ studyInstitution: studyInstitution }, (err, result) => {
         if(err)
             res.send(err);
         res.status(201).send('Deleted discipline');

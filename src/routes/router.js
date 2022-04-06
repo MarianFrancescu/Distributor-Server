@@ -44,5 +44,5 @@ module.exports = function(router) {
     router.get("/institutions", institutionController.getInstitutions);
     router.get("/institution/:institutionID", institutionController.getInstitution);
     router.patch("/institution/:institutionID/update", institutionController.updateInstitution);
-    router.delete("/institution/:institutionID/delete", institutionController.deleteInstitution);
+    router.delete("/institution/:studyInstitution/delete", institutionController.deleteInstitution);
 };
