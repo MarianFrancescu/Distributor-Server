@@ -182,3 +182,11 @@ exports.getUserDisciplines = async (req, res) => {
             res.json(results);
     });
 }
+
+exports.getNumberOfUsers = (req, res) => {
+    Users.count({}, (err, result) => {
+        if(err)
+            res.status(503).send("Server error");
+        else res.json(result);
+    });
+}

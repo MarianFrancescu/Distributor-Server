@@ -18,6 +18,7 @@ module.exports = function(router) {
     router.put('/discipline/:disciplineID/enroll', userController.enrollToDiscipline);
     router.put('/discipline/:disciplineID/unenroll', userController.unenrollFromDiscipline);
     router.get('/user/:userID/disciplines', userController.getUserDisciplines);
+    router.get('/users/length', userController.getNumberOfUsers);
 
     //routes for discipline endpoints
     router.post('/addDiscipline', disciplineController.addDiscipline);
@@ -26,6 +27,7 @@ module.exports = function(router) {
     router.get('/discipline/:disciplineID', disciplineController.getDiscipline);
     router.patch('/updateDiscipline/:disciplineID', disciplineController.updateDiscipline);
     router.delete('/deleteDiscipline/:disciplineID', disciplineController.deleteDiscipline);
+    router.get('/disciplines/length', disciplineController.getNumberOfDisciplines);
 
     //routes for preference endpoints
     router.post("/addPreference/:disciplineID", preferenceController.addDisciplinePreferences);
@@ -45,4 +47,5 @@ module.exports = function(router) {
     router.get("/institution/:institutionID", institutionController.getInstitution);
     router.patch("/institution/:institutionID/update", institutionController.updateInstitution);
     router.delete("/institution/:studyInstitution/delete", institutionController.deleteInstitution);
+    router.get('/institutions/length', institutionController.getNumberOfInstitutions);
 };

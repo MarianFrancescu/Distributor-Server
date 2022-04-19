@@ -86,3 +86,11 @@ exports.deleteDiscipline = (req, res) => {
         res.status(201).send('Deleted discipline');
     });
 }
+
+exports.getNumberOfDisciplines = (req, res) => {
+    Disciplines.count({}, (err, result) => {
+        if(err)
+            res.status(503).send("Server error");
+        else res.json(result);
+    });
+}

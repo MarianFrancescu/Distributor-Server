@@ -60,3 +60,11 @@ exports.deleteInstitution = (req, res) => {
         res.status(201).send('Deleted discipline');
     });
 }
+
+exports.getNumberOfInstitutions = (req, res) => {
+    Institutions.count({}, (err, result) => {
+        if(err)
+            res.status(503).send("Server error");
+        else res.json(result);
+    });
+}
