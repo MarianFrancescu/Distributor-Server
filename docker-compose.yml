@@ -1,0 +1,21 @@
+version: "3"
+services:
+  distributor-server:
+    container_name: distributor-server
+    restart: always
+    build: .
+    env_file: .env
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongo
+  mongo:
+    container_name: db_container
+    image: mongo:latest
+    restart: always
+    volumes: 
+      - mongo:/data/db
+    # ports:
+    #   - "27018:27018"
+volumes:
+  mongo: {}
