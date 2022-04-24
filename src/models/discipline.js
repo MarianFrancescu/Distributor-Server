@@ -9,7 +9,7 @@ const wSchema = mongoose.Schema({
         { type: mongoose.Schema.Types.ObjectId, ref: 'Users' }
     ],
     //in timetable we could have array of time + students 
-    timetable: [{option: String, students: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Users', unique : true }]}],
+    timetable: [{option: String, students: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Users', unique : true, sparse: true }]}],
     studyInstitution: String,
     faculty: String,
     department: String,
