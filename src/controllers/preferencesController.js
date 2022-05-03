@@ -109,31 +109,24 @@ exports.insertUserPreferences = (req, res) => {
         let userOptions = [];
         userOptions = (results.options);
 
-        
-        let index = 0;
-
         Disciplines.findById(disciplineID, (err, result) => {
             if(err){
                 console.log(err);
             }
-            
-            result.timetable.forEach(element => {
-                if(element.option === userOptions[index]){
-                    if(element.students.length < result.maxNoOfStudentsPerTimetable)
-                        console.log(2);
-                    else {
-                        index++;
-                    }
-                    // console.log(index);
-                }
-                //log that option not exists
-            });
 
+            let resultElem = '';
+            result.timetable.forEach(element => {
+               userOptions.forEach(el => {
+                   if(element.option === el)
+                    if(element.students.length < result.maxNoOfStudentsPerTimetable)
+                        resultElem = el;
+                })
+            });
+        
             let timetableDetails = {
-                option: userOptions[index],
+                option: resultElem,
                 students: userID            
             };
-            console.log(timetableDetails.option);
     
             let query = { "_id": disciplineID, "timetable.option": timetableDetails.option };
             let data = { $addToSet: { "timetable.$.students": timetableDetails.students} };
@@ -145,21 +138,4 @@ exports.insertUserPreferences = (req, res) => {
         });
         
     });
-    // retrieveUser(userID, disciplineID, res, function(err, options) {
-    //     if (err) {
-    //       console.log(err);
-    //     }
-    //     userOptions = options;
-    //     console.log(userOptions);
-    //   });
-
-    
-
-    // let query = { _id: disciplineID };
-    // let data = { $set: disciplineDetails };
-    // Disciplines.updateOne(query, data, function(err, docs) {
-    //     if(err)
-    //         res.send(err);
-    //     res.status(201).send(`Updated discipline details`);
-    // });
 }
