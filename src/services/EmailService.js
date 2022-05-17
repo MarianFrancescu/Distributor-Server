@@ -40,7 +40,7 @@ const sendCredentialEmail = async (name, email) => {
         from: process.env.EMAIL,
         to: `${email}`,
         subject: 'Distributor account',
-        text:`Hello! You have just created an account for ${email} with username ${name}`
+        text:`Welcome to the Distributor, ${name}! Thank you for registering in the app!`
     };
 
     transporter.sendMail(mailOptions, function(error, info){

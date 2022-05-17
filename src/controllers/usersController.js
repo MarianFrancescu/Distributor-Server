@@ -78,7 +78,7 @@ exports.registerUser = async (req, res) => {
         user.firstName = firstName;
         user.lastName = lastName;
         user.password = password;
-        emailService.sendCredentialEmail(`${firstName} + ${lastName}`, email);
+        emailService.sendCredentialEmail(`${firstName} ${lastName}`, email);
         await user.save({}, (err) => {
             if(err)
                 res.end(err);

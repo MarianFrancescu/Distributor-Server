@@ -114,15 +114,9 @@ exports.insertUserPreferences = (req, res) => {
                 console.log(err);
             }
 
-            let resultElem = '';
-            result.timetable.forEach(element => {
-               userOptions.forEach(el => {
-                   if(element.option === el)
-                    if(element.students.length < result.maxNoOfStudentsPerTimetable)
-                        resultElem = el;
-                })
-            });
-        
+            const timetableRes = result.timetable.map(val => val.option)
+            const resultElem = userOptions.find(val => timetableRes.includes(val))
+
             let timetableDetails = {
                 option: resultElem,
                 students: userID            
