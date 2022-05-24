@@ -114,7 +114,8 @@ exports.insertUserPreferences = (req, res) => {
                 console.log(err);
             }
 
-            const timetableRes = result.timetable.map(val => val.option)
+            const resultsTimetable = result.timetable.filter(elem => elem.students.length < result.maxNoOfStudentsPerTimetable);
+            const timetableRes = resultsTimetable.map(val => val.option);
             const resultElem = userOptions.find(val => timetableRes.includes(val))
 
             let timetableDetails = {
