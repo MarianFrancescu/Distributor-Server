@@ -13,7 +13,7 @@ exports.addDisciplinePreferences = (req, res) => {
     preference.save({}, (err) => {
         if(err)
             res.send(err);
-        res.status(201).send(`Preference saved successfuly`);
+        res.status(201).send(`Preference saved successfully`);
     });
 }
 

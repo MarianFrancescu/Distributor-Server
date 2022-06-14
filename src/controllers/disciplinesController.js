@@ -25,7 +25,7 @@ exports.addDiscipline = (req, res) => {
     discipline.save({}, function(err) {
         if(err)
             console.log(err)
-        res.status(201).send(`Discipline ${name} created successfuly`);
+        res.status(201).send(`Discipline ${name} created successfully`);
     });
 }
 
